@@ -1,0 +1,4 @@
+# 要求 git 忽略 node_modules 的所有變更 
+# node_modules 不要跟著複製到隨身碟 
+node_modules 
+.env 
