@@ -20,12 +20,18 @@ bot.listen('/', process.env.PORT, () => {
 bot.on('message', async event => {
   if (event.message.type === 'text') {
     try {
+      const message = event.message.split(' ')
+      console.log(message)
+
       const response = await axios.get('https://www.taiwan.net.tw/m1.aspx?sNo=0001019&page=1')
+      // const response = await axios.get(`https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=${keyword}^${area}^^${month}^${star_date}^${end_date}`)
       const $ = cheerio.load(response.data)
       let reply = ''
       $('.columnBlock-title').each(function () {
-        console.log($(this).text())
-        reply += $(this).text() + '\n'
+        // console.log($(this).text().trim())
+        // console.log($('.columnBlock-title').next().text().trim())
+        reply += $(this).text().trim() + '\n'
+        reply += $(this).next().text().trim() + '\n\n'
       })
       console.log(reply)
       event.reply(reply)
