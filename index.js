@@ -20,7 +20,7 @@ bot.listen('/', process.env.PORT, () => {
 bot.on('message', async event => {
   if (event.message.type === 'text') {
     try {
-      console.log(event.message)
+      console.log(event.message.text)
       // const message = event.message.split(' ')
       // console.log(message)
 
