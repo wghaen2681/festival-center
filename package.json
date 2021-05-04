@@ -13,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "dotenv": "^8.2.0"
+    "cheerio": "*",
+    "dotenv": "^8.2.0",
+    "linebot": "^1.6.1"
   },
   "devDependencies": {
     "eslint": "^7.25.0",
