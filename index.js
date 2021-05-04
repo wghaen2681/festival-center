@@ -20,8 +20,9 @@ bot.listen('/', process.env.PORT, () => {
 bot.on('message', async event => {
   if (event.message.type === 'text') {
     try {
-      const message = event.message.split(' ')
-      console.log(message)
+      console.log(event.message)
+      // const message = event.message.split(' ')
+      // console.log(message)
 
       const response = await axios.get('https://www.taiwan.net.tw/m1.aspx?sNo=0001019&page=1')
       // const response = await axios.get(`https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=${keyword}^${area}^^${month}^${star_date}^${end_date}`)
@@ -41,13 +42,3 @@ bot.on('message', async event => {
     }
   }
 })
-
-// const data = response.data.filter(data => {
-//   return data['花種'] === event.message.text
-// })
-
-// let reply = ''
-// for (const d of data) {
-//   reply += `地點:${d['地點']} \n地址:${d['地址']} \n觀賞時期:${d['觀賞時期']} \n\n`
-// }
-// ..
