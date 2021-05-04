@@ -1,6 +1,7 @@
 import linebot from 'linebot'
 import dotenv from 'dotenv'
 import axios from 'axios'
+import cheerio from 'cheerio'
 
 // 讓套件讀取 .env 檔案
 // 讀取後可以用 process.env.變數 使用
@@ -19,7 +20,6 @@ bot.listen('/', process.env.PORT, () => {
 bot.on('message', async event => {
   if (event.message.type === 'text') {
     try {
-      const cheerio = require('cheerio')
       const response = await axios.get('https://www.taiwan.net.tw/m1.aspx?sNo=0001019&page=1')
       const $ = cheerio.load(response.data)
       let reply = ''
