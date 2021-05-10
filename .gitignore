@@ -4,3 +4,8 @@ node_modules
 .env 
 note
 test.html 
+.DS_Store
+checklist_install
+problem_ngrok
+problem
+checklist
