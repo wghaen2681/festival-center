@@ -1,3 +1,4 @@
+/* eslint-disable space-before-function-paren */
 /* eslint-disable camelcase */
 import linebot from 'linebot'
 import dotenv from 'dotenv'
@@ -37,7 +38,7 @@ bot.on('message', async event => {
       console.log(messages)
 
       // 設定區域回傳值函式
-      function areaI (message) {
+      function areaI(message) {
         if (message.includes('北部')) {
           return 1
         } else if (message.includes('中部')) {
@@ -52,7 +53,7 @@ bot.on('message', async event => {
       }
 
       // 設定月份判斷函式
-      function monthIndex (message) {
+      function monthIndex(message) {
         if (message.includes('十二')) {
           return 12
         } else if (message.includes('十一')) {
@@ -86,7 +87,7 @@ bot.on('message', async event => {
       // }
 
       // 設定判斷開始與結束日期函式
-      function sDeD (month_1, day_1, month_2, day_2) {
+      function sDeD(month_1, day_1, month_2, day_2) {
         const a = [month_1, day_1, month_2, day_2]
         const b = [month_2, day_2, month_1, day_1]
         if (month_1 < month_2) {
@@ -136,12 +137,7 @@ bot.on('message', async event => {
 
       // 判斷開始日期和結束日期
       if (date.length === 2) {
-        date = sDeD(
-          parseInt(date[0].substring(0, 1)),
-          parseInt(date[0].substring(2, 3)),
-          parseInt(date[1].substring(0, 1)),
-          parseInt(date[1].substring(2, 3))
-        )
+        date = sDeD(parseInt(date[0].substring(0, 1)), parseInt(date[0].substring(2, 3)), parseInt(date[1].substring(0, 1)), parseInt(date[1].substring(2, 3)))
         console.log(date)
         for (let i = 0; i < date.length; i++) {
           if (date[i].toString().length < 2) {
@@ -155,14 +151,20 @@ bot.on('message', async event => {
 
       // 抓取網站連結
       console.log(`https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=^${area}^^${month}^2021${date[0]}${date[1]}^2021${date[2]}${date[3]}`)
-      const response = await axios.get(`https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=^${area}^^${month}^2021${date[0]}${date[1]}^2021${date[2]}${date[3]}`)
+      const response = await axios.get(
+        `https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=^${area}^^${month}^2021${date[0]}${date[1]}^2021${date[2]}${date[3]}`
+      )
       const $ = cheerio.load(response.data)
       let reply = ''
       $('.columnBlock-title').each(function () {
         // console.log($(this).text().trim())
         // console.log($('.columnBlock-title').next().text().trim())
         reply += $(this).text().trim() + '\n'
-        reply += $(this).next().text().trim() + '\n\n'
+        reply += $(this).next().text().trim() + '\n'
+        reply += 'https://www.taiwan.net.tw/' + $(this).attr('href') + '\n'
+        // reply += $(this) + '\n'
+
+        reply += '\n'
       })
       console.log(reply)
       event.reply(reply)
