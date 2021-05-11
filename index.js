@@ -163,81 +163,91 @@ bot.on('message', async event => {
           contents: []
         }
       }
-      const bubble1 = {
-        type: 'bubble',
-        size: 'micro',
-        hero: {
-          type: 'image',
-          url: 'https://www.taiwan.net.tw/att/event/388b0f82-b621-4be2-8c5f-4dac47482d01.jpg',
-          size: 'full',
-          aspectMode: 'cover',
-          aspectRatio: '320:213'
-        },
-        body: {
-          type: 'box',
-          layout: 'vertical',
-          contents: [
-            {
-              type: 'box',
-              layout: 'vertical',
-              contents: [
-                {
-                  type: 'box',
-                  layout: 'vertical',
-                  contents: [
-                    {
-                      type: 'text',
-                      text: '台灣好湯-溫泉美食嘉年華',
-                      weight: 'bold',
-                      size: 'md',
-                      wrap: true,
-                      margin: 'none'
-                    },
-                    {
-                      type: 'box',
-                      layout: 'baseline',
-                      spacing: 'sm',
-                      contents: [
-                        {
-                          type: 'text',
-                          text: '2020/10/21 ~ 2021/06/30',
-                          wrap: true,
-                          color: '#8c8c8c',
-                          size: 'xs',
-                          flex: 5
-                        }
-                      ]
-                    }
-                  ],
-                  paddingBottom: '15px',
-                  paddingTop: '5px'
-                },
-                {
-                  type: 'text',
-                  text:
-                    '時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。 交通部觀光局自民國96年開始每年結合溫泉保健養生特色及現代人健康飲食需求，將臺灣「溫泉」及「美食」兩大觀光資源整合規劃推出「溫泉美食嘉年華」活動。該活動每年在全臺各地同時登場，並從全臺19個溫泉區選出啟動地點。 「溫泉美食嘉年華」不但讓國內遊客全臺溫泉區泡透透，處處都享優惠，對國際觀光客也是深具魅力，更是帶動秋冬臺灣溫泉旅遊熱潮的年度盛事。活動期間，全臺溫泉區都將陸續辦理溫泉美食系列活動，並整合全臺各縣市溫泉區上百家業者，集合各溫泉區景點、人文風情與特產介紹，推薦優質店家，同時更提供好康優惠陸續引爆泡湯話題。',
-                  wrap: true,
-                  size: 'xs'
+      function bubbleIn(title) {
+        const bubble1 = {
+          type: 'bubble',
+          size: 'micro',
+          hero: {
+            type: 'image',
+            url: 'https://www.taiwan.net.tw/att/event/388b0f82-b621-4be2-8c5f-4dac47482d01.jpg',
+            size: 'full',
+            aspectMode: 'cover',
+            aspectRatio: '320:213'
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: title,
+                        weight: 'bold',
+                        size: 'md',
+                        wrap: true,
+                        margin: 'none'
+                      },
+                      {
+                        type: 'box',
+                        layout: 'baseline',
+                        spacing: 'sm',
+                        contents: [
+                          {
+                            type: 'text',
+                            text: '2020/10/21 ~ 2021/06/30',
+                            wrap: true,
+                            color: '#8c8c8c',
+                            size: 'xs',
+                            flex: 5
+                          }
+                        ]
+                      }
+                    ],
+                    paddingBottom: '15px',
+                    paddingTop: '5px'
+                  },
+                  {
+                    type: 'text',
+                    text:
+                      '時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。 交通部觀光局自民國96年開始每年結合溫泉保健養生特色及現代人健康飲食需求，將臺灣「溫泉」及「美食」兩大觀光資源整合規劃推出「溫泉美食嘉年華」活動。該活動每年在全臺各地同時登場，並從全臺19個溫泉區選出啟動地點。 「溫泉美食嘉年華」不但讓國內遊客全臺溫泉區泡透透，處處都享優惠，對國際觀光客也是深具魅力，更是帶動秋冬臺灣溫泉旅遊熱潮的年度盛事。活動期間，全臺溫泉區都將陸續辦理溫泉美食系列活動，並整合全臺各縣市溫泉區上百家業者，集合各溫泉區景點、人文風情與特產介紹，推薦優質店家，同時更提供好康優惠陸續引爆泡湯話題。',
+                    wrap: true,
+                    size: 'xs'
+                  }
+                ],
+                height: '200px'
+              },
+              {
+                type: 'button',
+                action: {
+                  type: 'uri',
+                  label: 'website',
+                  uri: 'https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080498'
                 }
-              ],
-              height: '200px'
-            },
-            {
-              type: 'button',
-              action: {
-                type: 'uri',
-                label: 'website',
-                uri: 'https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080498'
               }
-            }
-          ],
-          spacing: 'sm',
-          paddingAll: '13px'
+            ],
+            spacing: 'sm',
+            paddingAll: '13px'
+          }
+
         }
+        return bubble1
       }
 
       $('.columnBlock-title').each(function () {
-        flex.contents.contents.push(bubble1)
+        console.log($(this).text().trim())
+        // const image =
+        const title = $(this).text().trim()
+        // const date  =
+        // const intro =
+        // const website=
+        flex.contents.contents.push(bubbleIn(title))
       })
       event.reply(flex)
     } catch (error) {
