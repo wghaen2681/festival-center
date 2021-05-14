@@ -163,13 +163,26 @@ bot.on('message', async event => {
           contents: []
         }
       }
-      function bubbleIn(title) {
+
+      $('.columnBlock').each(function () {
+        // 抓圖片
+        const hero_img = $(this).find('img').attr('data-src')
+        // 抓標題
+        const title = $(this).find('.columnBlock-info .columnBlock-title').text().trim()
+        // 抓日期
+        const date = $(this).find('.columnBlock-info .date').text().trim()
+        // 抓簡介
+        const intro = $(this).find('.columnBlock-info p').text()
+        // 抓連結
+        // 不懂為什麼這邊會當掉
+        const website = 'https://www.taiwan.net.tw/' + $(this).find('.columnBlock-info a').attr('href')
+
         const bubble1 = {
           type: 'bubble',
           size: 'micro',
           hero: {
             type: 'image',
-            url: 'https://www.taiwan.net.tw/att/event/388b0f82-b621-4be2-8c5f-4dac47482d01.jpg',
+            url: hero_img,
             size: 'full',
             aspectMode: 'cover',
             aspectRatio: '320:213'
@@ -201,7 +214,7 @@ bot.on('message', async event => {
                         contents: [
                           {
                             type: 'text',
-                            text: '2020/10/21 ~ 2021/06/30',
+                            text: date,
                             wrap: true,
                             color: '#8c8c8c',
                             size: 'xs',
@@ -215,8 +228,7 @@ bot.on('message', async event => {
                   },
                   {
                     type: 'text',
-                    text:
-                      '時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。 交通部觀光局自民國96年開始每年結合溫泉保健養生特色及現代人健康飲食需求，將臺灣「溫泉」及「美食」兩大觀光資源整合規劃推出「溫泉美食嘉年華」活動。該活動每年在全臺各地同時登場，並從全臺19個溫泉區選出啟動地點。 「溫泉美食嘉年華」不但讓國內遊客全臺溫泉區泡透透，處處都享優惠，對國際觀光客也是深具魅力，更是帶動秋冬臺灣溫泉旅遊熱潮的年度盛事。活動期間，全臺溫泉區都將陸續辦理溫泉美食系列活動，並整合全臺各縣市溫泉區上百家業者，集合各溫泉區景點、人文風情與特產介紹，推薦優質店家，同時更提供好康優惠陸續引爆泡湯話題。',
+                    text: intro,
                     wrap: true,
                     size: 'xs'
                   }
@@ -228,31 +240,22 @@ bot.on('message', async event => {
                 action: {
                   type: 'uri',
                   label: 'website',
-                  uri: 'https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080498'
+                  uri: website
                 }
               }
             ],
             spacing: 'sm',
             paddingAll: '13px'
           }
-
         }
-        return bubble1
-      }
-
-      $('.columnBlock-title').each(function () {
-        console.log($(this).text().trim())
-        // const image =
-        const title = $(this).text().trim()
-        // const date  =
-        // const intro =
-        // const website=
-        flex.contents.contents.push(bubbleIn(title))
+        flex.contents.contents.push(bubble1)
       })
       event.reply(flex)
     } catch (error) {
       console.log(error)
-      event.reply('發生錯誤')
+      // event.reply('發生錯誤')
+      const error_message = ['發生錯誤', '請輸入: 區域、月份、\n開始日期+結束日期']
+      event.reply(error_message)
     }
   }
 })
