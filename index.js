@@ -23,10 +23,6 @@ bot.listen('/', process.env.PORT, () => {
 bot.on('message', async event => {
   if (event.message.type === 'text') {
     try {
-      // console.log(event.message)
-      // console.log(event.message.text)
-      // console.log(event.message.type)
-
       // 切割訊息片段
       let messages = event.message.text.split(' ')
       console.log(messages)
@@ -35,7 +31,6 @@ bot.on('message', async event => {
       messages = messages.filter(message => {
         return message.length > 0
       })
-      console.log(messages)
 
       // 設定區域回傳值函式
       function areaI(message) {
@@ -80,11 +75,6 @@ bot.on('message', async event => {
           return 1
         }
       }
-      // 為什麼這樣不會回傳！
-      // let text = '一2'
-      // if (text.includes('3', '一')) {
-      //     console.log('!')
-      // }
 
       // 設定判斷開始與結束日期函式
       function sDeD(month_1, day_1, month_2, day_2) {
@@ -119,41 +109,25 @@ bot.on('message', async event => {
           console.log('地區在 ' + area)
         }
       }
-      console.log(date)
-      // 為什麼下面這邊不能執行
-      // let date = []
-      // for (message of messages) {
-      //     if (message.includes('月')) {
-      //         let month = monthIndex(message)
-      //         console.log( '月份在 ' + month)
-      //     } else if (message.includes('/')) {
-      //         date.push(message)
-      //     } else {
-      //         let area = message
-      //         console.log( '地區在 ' + area )
-      //     }
-      // }
-      // console.log(date)
 
       // 判斷開始日期和結束日期
       if (date.length === 2) {
         date = sDeD(parseInt(date[0].substring(0, 1)), parseInt(date[0].substring(2, 3)), parseInt(date[1].substring(0, 1)), parseInt(date[1].substring(2, 3)))
-        console.log(date)
         for (let i = 0; i < date.length; i++) {
           if (date[i].toString().length < 2) {
             date[i] = '0' + date[i]
           }
         }
-        console.log(date)
       } else if (date.length > 2) {
         console.log('無法辨識輸入的開始日期與結束日期，輸入日期應小於兩個')
       }
 
       // 抓取網站連結
-      console.log(`https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=^${area}^^${month}^2021${date[0]}${date[1]}^2021${date[2]}${date[3]}`)
       const response = await axios.get(
         `https://www.taiwan.net.tw/m1.aspx?sNo=0001019&keyString=^${area}^^${month}^2021${date[0]}${date[1]}^2021${date[2]}${date[3]}`
       )
+
+      // 設定回傳的泡泡訊息列表
       const $ = cheerio.load(response.data)
       const flex = {
         type: 'flex',
@@ -164,6 +138,7 @@ bot.on('message', async event => {
         }
       }
 
+      // 將每筆抓到的資料做成泡泡訊息格式後 push 進泡泡訊息列表
       $('.columnBlock').each(function () {
         // 抓圖片
         const hero_img = $(this).find('img').attr('data-src')
@@ -174,7 +149,6 @@ bot.on('message', async event => {
         // 抓簡介
         const intro = $(this).find('.columnBlock-info p').text()
         // 抓連結
-        // 不懂為什麼這邊會當掉
         const website = 'https://www.taiwan.net.tw/' + $(this).find('.columnBlock-info a').attr('href')
 
         const bubble1 = {
@@ -250,10 +224,15 @@ bot.on('message', async event => {
         }
         flex.contents.contents.push(bubble1)
       })
-      event.reply(flex)
+
+      // 判斷是否有可回傳的內容
+      if (flex.contents.contents.length) {
+        event.reply(flex)
+      } else {
+        event.reply('很抱歉！目前查無符合條件的資料')
+      }
     } catch (error) {
       console.log(error)
-      // event.reply('發生錯誤')
       const error_message = ['發生錯誤', '請輸入: 區域、月份、\n開始日期+結束日期']
       event.reply(error_message)
     }

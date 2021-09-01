@@ -1,0 +1,46 @@
+mac 在安裝軟體的時候常常會有 path 的問題： 
+> PATH=/Users/neil_macbookair/opt/anaconda3/bin:/bin:/condabin:/home/user/anaconda3/bin:/usr/bin:/usr/local/bin/
+
+
+npm 初始化 / 安裝 package.json： 
+> $ npm init --yes
+> package.json 加上（"type": "module" ）（"scripts": { "start": "node index.js", "dev": "nodemon index.js" }）
+
+
+安裝 linebot 套件： 
+> $ npm i linebot 
+
+
+設定 gitignore（忽略 node_module）： 
+> 新增 .gitignore 檔案 
+
+
+> 新增 index.js 主要檔案： 
+
+
+import linebot： 
+> import linebot from 'linebot' 
+> 
+var bot = linebot({
+  channelId: CHANNEL_ID,
+  channelSecret: CHANNEL_SECRET,
+  channelAccessToken: CHANNEL_ACCESS_TOKEN
+});
+
+
+在全域環境中安裝 eslint 
+> npm i -g eslint 
+or > sudo npm i -g eslint ( for mac requires permission to access ) 
+> eslint --init 
+
+
+ESLint用於檢查JavaScript程式碼是否符合規則，ESLint想要解決關於程式碼品質和程式碼風格的問題。
+
+
+-------------------------------------------------------------------------------------------
+
+
+安裝 ngrok（協助本機端對 line 發送 https 請求）：npm i -g ngrok（全域安裝）
+在終端機中輸入 npm run start 使程式在 Port 3000 中運行
+在終端機中輸入 ngrok http 3000 使 ngrok 監測 Port 3000 的動作
+得到 ngrok 提供的網址以後，進去 line developer 更改 webhook link
